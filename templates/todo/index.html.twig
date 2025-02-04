@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TODO index{% endblock %}
+
+{% block body %}
+<h1>Liste des tâches</h1>
+
+<form method="get" action="{{ path('todo_index') }}">
+    <label for="status">Filtrer par statut :</label>
+    <select id="status" name="status">
+        <option value="">Tous</option>
+        <option value="afaire"{{ app.request.get('status') == 'afaire' ? 'selected' : '' }}>À faire</option>
+        <option value="terminee" {{ app.request.get('status') == 'terminee' ? 'selected' : '' }}>Terminée</option>
+        <label for="filter">Filtrer par statut :</label>
+    </select>
+    <button type="submit">Filtrer</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for todo in todos %}
+        <tr>
+            <td>{{ todo.id }}</td>
+            <td>{{ todo.title }}</td>
+            <td>{{ todo.description }}</td>
+            <td>{{ todo.status }}</td>
+            <td>
+                <a href="{{ path('todo_edit', {'id': todo.id}) }}">modifier</a>
+                <form method="post" action="{{ path('todo_delete', {'id': todo.id}) }}" style="display: inline-block;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ todo.id) }}">
+                    <button class="btn btn-danger">supprimer</button>
+                </form>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">Aucune tâche trouvée</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('todo_new') }}">Ajouter une nouvelle tâche</a>
+{% endblock %}
+

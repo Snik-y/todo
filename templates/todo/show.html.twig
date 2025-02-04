@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TODO{% endblock %}
+
+{% block body %}
+    <h1>TODO</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ t_o_d_o.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ t_o_d_o.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ t_o_d_o.description }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ t_o_d_o.status }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ t_o_d_o.createdAt ? t_o_d_o.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_t_o_d_o_index') }}">back to list</a>
+
+    <a href="{{ path('app_t_o_d_o_edit', {'id': t_o_d_o.id}) }}">edit</a>
+
+    {{ include('todo/_delete_form.html.twig') }}
+{% endblock %}
