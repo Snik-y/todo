@@ -41,11 +41,13 @@ class TODO
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="todos")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $category;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="todos")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 

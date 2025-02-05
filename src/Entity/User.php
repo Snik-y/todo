@@ -44,6 +44,11 @@ class User
         $this->todos = new ArrayCollection();
     }
 
+    public function __tostring()
+    {
+        return $this->firstname;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -23,7 +23,8 @@
             <th>Title</th>
             <th>Description</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th>Catégorie</th>
+            <th>Utilisateur</th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +34,9 @@
             <td>{{ todo.title }}</td>
             <td>{{ todo.description }}</td>
             <td>{{ todo.status }}</td>
+            {% if todo.category is not null %}
+                <td>{{todo.category.name}}
+            {% endif %}
             <td>
                 <a href="{{ path('todo_edit', {'id': todo.id}) }}">modifier</a>
                 <form method="post" action="{{ path('todo_delete', {'id': todo.id}) }}" style="display: inline-block;">

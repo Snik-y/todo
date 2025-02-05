@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/todo")
+ */
+
 class TODOController extends AbstractController
 {
     /**
@@ -74,7 +78,9 @@ class TODOController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($todo);
+            $entityManager->flush();
 
             return $this->redirectToRoute('todo_index');
         }
